@@ -3,6 +3,10 @@ import axios from "axios";
 import { gameDetailsUrl, gameScreenshotUrl } from "../api";
 
 const loadGameDetails = (id) => async (dispatch) => {
+  dispatch({
+    type: "LOADING_DETAIL",
+  });
+
   const gameDetails = await axios.get(gameDetailsUrl(id));
   const gameScreenshot = await axios.get(gameScreenshotUrl(id));
 

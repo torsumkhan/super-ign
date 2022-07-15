@@ -4,39 +4,43 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
 const GameDetail = () => {
-  const { game_details, game_screenshot } = useSelector(
+  const { game_details, game_screenshot, isLoading } = useSelector(
     (state) => state.details
   );
   return (
-    <CardShadow>
-      <Detail>
-        <Stats>
-          <div className="rating">
-            <h3>{game_details.name}</h3>
-            <p>Rating: {game_details.rating}</p>
-          </div>
-          <Info>
-            <h3>Platforms</h3>
-            <Platforms>
-              {game_details.platforms.map((data) => {
-                return <h3>{data.platform.name}</h3>;
+    <>
+      {!isLoading && (
+        <CardShadow>
+          <Detail>
+            <Stats>
+              <div className="rating">
+                <h3>{game_details.name}</h3>
+                <p>Rating: {game_details.rating}</p>
+              </div>
+              <Info>
+                <h3>Platforms</h3>
+                <Platforms>
+                  {game_details.platforms.map((data) => {
+                    return <h3>{data.platform.name}</h3>;
+                  })}
+                </Platforms>
+              </Info>
+            </Stats>
+            <Media>
+              <img src={game_details.background_image} />
+            </Media>
+            <Desc>
+              <p>{game_details.description_raw}</p>
+            </Desc>
+            <div className="gallery">
+              {game_screenshot.results.map((screen) => {
+                return <img src={screen.image} />;
               })}
-            </Platforms>
-          </Info>
-        </Stats>
-        <Media>
-          <img src={game_details.background_image} />
-        </Media>
-        <Desc>
-          <p>{game_details.description_raw}</p>
-        </Desc>
-        <div className="gallery">
-          {game_screenshot.results.map((screen) => {
-            return <img src={screen.image} />;
-          })}
-        </div>
-      </Detail>
-    </CardShadow>
+            </div>
+          </Detail>
+        </CardShadow>
+      )}
+    </>
   );
 };
 
