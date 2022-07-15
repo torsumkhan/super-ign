@@ -6,13 +6,12 @@ import loadGames from "../actions/gamesAction";
 import Game from "../components/Game";
 import Loading from "../components/Loading";
 import GameDetail from "../components/GameDetail";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 
 const Home = () => {
   const location = useLocation();
-  const { id } = useParams();
-  const gameDetail = useSelector((state) => state.details.game_details.name);
   const pathId = location.pathname.split("/")[2];
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadGames());
@@ -27,7 +26,7 @@ const Home = () => {
   }
   return (
     <GameList>
-      {gameDetail && <GameDetail />}
+      {pathId && <GameDetail />}
       <h2>Trending</h2>
       <Games>
         {new_games.map((game) => {
@@ -89,13 +88,14 @@ const GameList = styled(motion.div)`
   padding: 0rem 5rem;
   h2 {
     padding: 5rem 0rem;
+    font-weight: 500;
   }
 `;
 const Games = styled(motion.div)`
   min-height: 80vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-column-gap: 30px;
-  grid-row-gap: 30px;
+  grid-row-gap: 40px;
 `;
 export default Home;

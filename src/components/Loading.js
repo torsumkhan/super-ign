@@ -1,11 +1,18 @@
 import react from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
 
 const Loading = () => {
   return (
-    <div>
+    <Load>
       <h2>Loading...</h2>
-    </div>
+    </Load>
   );
 };
+
+const Load = styled(motion.div)`
+  text-align: center;
+  margin: 90px auto;
+`;
 
 export default Loading;

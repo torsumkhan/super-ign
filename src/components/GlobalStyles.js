@@ -25,15 +25,18 @@ h2{
         font-size: 3rem;
         font-weight: lighter;
     }
-    h3{
+h3{
         font-size: 24px;
         line-height: 28px;
         padding: 1.4rem 0rem;
     }
-    p{
+p{
         font-size: 0.8rem;
         line-height: 200%;
         color: lightgray;
+    }
+    img{
+        display: block;
     }
 }
 `;
