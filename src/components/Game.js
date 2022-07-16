@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import loadGameDetails from "../actions/detailAction";
 import { Link, useHistory } from "react-router-dom";
+import { resizeImage } from "../util";
 
-const Game = ({ id, name, release, platform, genre, image, rating }) => {
+const Game = ({ id, name, release, platform, genre, image, rating, meta }) => {
+  console.log(meta);
+  const stringPathId = id.toString();
   const history = useHistory();
   if (history.location.pathname === "/") {
     document.body.style.overflow = "auto";
@@ -18,9 +21,14 @@ const Game = ({ id, name, release, platform, genre, image, rating }) => {
     dispatch(loadGameDetails(id));
   };
   return (
-    <StyledGame onClick={detailHandler}>
+    <StyledGame layoutId={stringPathId} onClick={detailHandler}>
       <Link to={`/game/${id}`} style={{ textDecoration: "none" }}>
-        <img src={image} />
+        <motion.img
+          layoutId={`image${stringPathId}`}
+          src={resizeImage(image, 640)}
+        />
+        {meta === null ? null : <p>{meta}</p>}
+
         <h3>{name}</h3>
         <p>Release date: {release}</p>
       </Link>
@@ -49,6 +57,13 @@ const StyledGame = styled(motion.div)`
   p {
     text-align: left;
     padding: 1.2rem;
+  }
+  span p {
+    color: green;
+    font-weight: bold;
+    display: inline-block;
+    text-align: left;
+    border: 1px solid green;
   }
   :hover {
     cursor: pointer;
