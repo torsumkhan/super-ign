@@ -4,15 +4,12 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { resizeImage } from "../util";
-import { FaBeer } from "react-icons/fa";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   solid,
-//   regular,
-//   brands,
-// } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { faXbox } from "@fortawesome/free-solid-svg-icons";
-import { faAtom } from "@fortawesome/free-solid-svg-icons";
+import xbox from "../img/xbox-brands.svg";
+import playstation from "../img/playstation.svg";
+import nintendo from "../img/nintendo.svg";
+import steam from "../img/steam.svg";
+import gamepad from "../img/gamepad.svg";
+import apple from "../img/apple.svg";
 
 const GameDetail = ({ pathId }) => {
   const history = useHistory();
@@ -25,9 +22,18 @@ const GameDetail = ({ pathId }) => {
   };
 
   const platformLogos = (platform) => {
-    switch (platform) {
-      case "PlayStation 4":
-        return <FaBeer />;
+    if (platform.includes("PlayStation")) {
+      return playstation;
+    } else if (platform.includes("Xbox")) {
+      return xbox;
+    } else if (platform === "PC") {
+      return steam;
+    } else if (platform === "Nintendo Switch") {
+      return nintendo;
+    } else if (platform.includes("OS")) {
+      return apple;
+    } else {
+      return gamepad;
     }
   };
   const { game_details, game_screenshot, isLoading } = useSelector(
@@ -40,20 +46,59 @@ const GameDetail = ({ pathId }) => {
           <Detail layoutId={pathId}>
             <Stats>
               <div className="rating">
-                <motion.h3 layoutId={`title ${pathId}`}>
+                <motion.h2 layoutId={`title ${pathId}`}>
                   {game_details.name}
-                </motion.h3>
+                </motion.h2>
                 <p>Rating: {game_details.rating}</p>
+                <p>ESRB Rating: {game_details.esrb_rating.name}</p>
+                <Genre>
+                  <p>Genre: </p>
+                  {game_details.genres.map((genre) => {
+                    return (
+                      <p className="genre-name" style={{ marginLeft: ".5rem" }}>
+                        {genre.name}
+                      </p>
+                    );
+                  })}
+                </Genre>
+                <Developers>
+                  <p>Developers: </p>
+                  {game_details.developers.map((developer) => {
+                    return (
+                      <p
+                        className="developer-name"
+                        style={{ marginLeft: ".5rem" }}
+                      >
+                        {developer.name}
+                      </p>
+                    );
+                  })}
+                </Developers>
+                <Publishers>
+                  <p>Publishers: </p>
+                  {game_details.publishers.map((publisher) => {
+                    return (
+                      <p
+                        className="publisher-name"
+                        style={{ marginLeft: ".5rem" }}
+                      >
+                        {publisher.name}
+                      </p>
+                    );
+                  })}
+                </Publishers>
               </div>
               <Info>
                 <h3>Platforms</h3>
-                <FaBeer />
                 <Platforms>
                   {game_details.platforms.map((data) => {
                     return (
                       <img
                         key={data.platform.id}
                         src={platformLogos(data.platform.name)}
+                        className="icon"
+                        alt={data.platform.name}
+                        title={data.platform.name}
                       />
                     );
                   })}
@@ -67,6 +112,7 @@ const GameDetail = ({ pathId }) => {
               />
             </Media>
             <Desc>
+              <h3>Description</h3>
               <p>{game_details.description_raw}</p>
             </Desc>
             <Gallery>
@@ -103,14 +149,21 @@ const CardShadow = styled(motion.div)`
 
 const Detail = styled(motion.div)`
   width: 80%;
-  background: black;
+  background: #202020;
   border-radius: 1rem;
   padding: 2rem 20rem;
   position: absolute;
-  padding: 5rem;
+  padding: 3rem;
   left: 10%;
   img {
     width: 100%;
+  }
+  h2 {
+    font-size: 50px;
+    padding: 0;
+  }
+  p {
+    font-size: 1rem;
   }
 `;
 
@@ -129,6 +182,13 @@ const Platforms = styled(motion.div)`
   justify-content: space-evenly;
   img {
     margin-left: 3rem;
+    width: 30px;
+    height: 30px;
+    color: white;
+    fill: currentColor;
+  }
+  svg path {
+    fill: currentColor;
   }
 `;
 
@@ -141,10 +201,25 @@ const Media = styled(motion.div)`
   }
 `;
 
+const Genre = styled(motion.div)`
+  display: flex;
+`;
+
+const Developers = styled(motion.div)`
+  display: flex;
+`;
+
+const Publishers = styled(motion.div)`
+  display: flex;
+`;
+
 const Desc = styled(motion.div)`
   margin: 5rem 0rem;
   p {
     font-size: 1rem;
+  }
+  h3 {
+    font-weight: 500;
   }
 `;
 

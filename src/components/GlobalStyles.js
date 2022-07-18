@@ -12,7 +12,7 @@ html{
     }
 
     &::-webkit-scrollbar-thumb{
-        background-color: blue
+        background-color: #fbc730
     }
 }
 body {

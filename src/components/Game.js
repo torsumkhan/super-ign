@@ -5,9 +5,33 @@ import { useDispatch } from "react-redux";
 import loadGameDetails from "../actions/detailAction";
 import { Link, useHistory } from "react-router-dom";
 import { resizeImage } from "../util";
+import xbox from "../img/xbox-brands.svg";
+import playstation from "../img/playstation.svg";
+import nintendo from "../img/nintendo.svg";
+import windows from "../img/windows.svg";
+import gamepad from "../img/gamepad.svg";
+import apple from "../img/apple.svg";
+import linux from "../img/linux.svg";
 
 const Game = ({ id, name, release, platform, genre, image, rating, meta }) => {
-  console.log(meta);
+  const platformLogos = (platform) => {
+    if (platform.includes("PlayStation")) {
+      return playstation;
+    } else if (platform.includes("Xbox")) {
+      return xbox;
+    } else if (platform === "PC") {
+      return windows;
+    } else if (platform === "Nintendo Switch") {
+      return nintendo;
+    } else if (platform.includes("OS")) {
+      return apple;
+    } else if (platform.includes("Linux")) {
+      return linux;
+    } else {
+      return gamepad;
+    }
+  };
+
   const stringPathId = id.toString();
   const history = useHistory();
   if (history.location.pathname === "/") {
@@ -27,8 +51,20 @@ const Game = ({ id, name, release, platform, genre, image, rating, meta }) => {
           layoutId={`image${stringPathId}`}
           src={resizeImage(image, 640)}
         />
-        {meta === null ? null : <p>{meta}</p>}
-
+        <HeaderInfo>
+          <LogoIcons className="icon">
+            {platform.map((plat) => {
+              return (
+                <img
+                  src={platformLogos(plat.platform.name)}
+                  key={plat.platform.name}
+                  title={plat.platform.name}
+                />
+              );
+            })}
+          </LogoIcons>
+          {meta === null ? <p>n/a</p> : <p title="Metascore">{meta}</p>}
+        </HeaderInfo>
         <h3>{name}</h3>
         <p>Release date: {release}</p>
       </Link>
@@ -46,7 +82,7 @@ const StyledGame = styled(motion.div)`
   overflow: hidden;
   img {
     width: 100%;
-    height: 30vh;
+    height: 50vh;
     object-fit: cover;
   }
   h3 {
@@ -67,6 +103,29 @@ const StyledGame = styled(motion.div)`
   }
   :hover {
     cursor: pointer;
+  }
+`;
+
+const LogoIcons = styled(motion.div)`
+  display: flex;
+  gap: 10px;
+  img {
+    width: 15px;
+    height: 15px;
+  }
+`;
+
+const HeaderInfo = styled(motion.div)`
+  padding: 1rem 1.2rem 0 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p {
+    font-weight: bold;
+    border: 1px solid #fbc730;
+    padding: 1px 8px;
+    border-radius: 6px;
+    color: #fbc730;
   }
 `;
 

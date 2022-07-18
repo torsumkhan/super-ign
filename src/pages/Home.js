@@ -8,6 +8,7 @@ import Loading from "../components/Loading";
 import GameDetail from "../components/GameDetail";
 import { useLocation } from "react-router-dom";
 import { gameDetailsUrl } from "../api";
+import { searchGames } from "../actions/gamesAction";
 
 const Home = () => {
   const location = useLocation();
@@ -22,9 +23,8 @@ const Home = () => {
     });
   }, [dispatch]);
 
-  const { popular_games, new_games, upcoming_games } = useSelector(
-    (state) => state.games
-  );
+  const { popular_games, new_games, upcoming_games, searched_game } =
+    useSelector((state) => state.games);
 
   if (upcoming_games.length < 1) {
     return <Loading />;
@@ -35,6 +35,34 @@ const Home = () => {
         <AnimatePresence>
           {pathId && <GameDetail pathId={pathId} />}
         </AnimatePresence>
+
+        {searched_game.length ? (
+          <div className="searched">
+            <h2>Search results: </h2>
+
+            <Games>
+              {searched_game.map((game) => {
+                return (
+                  <Game
+                    id={game.id}
+                    name={game.name}
+                    release={game.released}
+                    platform={game.platforms}
+                    genre={game.genre}
+                    x
+                    image={game.background_image}
+                    rating={game.rating}
+                    key={game.id}
+                    meta={game.metacritic}
+                  />
+                );
+              })}
+            </Games>
+          </div>
+        ) : (
+          ""
+        )}
+
         <h2>Trending</h2>
         <Games>
           {new_games.map((game) => {
@@ -67,6 +95,7 @@ const Home = () => {
                 image={game.background_image}
                 rating={game.rating}
                 key={game.id}
+                meta={game.metacritic}
               />
             );
           })}
@@ -85,6 +114,7 @@ const Home = () => {
                 image={game.background_image}
                 rating={game.rating}
                 key={game.id}
+                meta={game.metacritic}
               />
             );
           })}

@@ -8,3 +8,7 @@ body {
 
 }
 
+.icon {
+  filter: invert(100%) sepia(0%) saturate(1628%) hue-rotate(141deg) brightness(115%) contrast(101%);
+}
+
