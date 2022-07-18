@@ -9,6 +9,7 @@ import GameDetail from "../components/GameDetail";
 import { useLocation } from "react-router-dom";
 import { gameDetailsUrl } from "../api";
 import { searchGames } from "../actions/gamesAction";
+import Masonry from "react-masonry-css";
 
 const Home = () => {
   const location = useLocation();
@@ -22,6 +23,12 @@ const Home = () => {
       }
     });
   }, [dispatch]);
+
+  const breakpoints = {
+    default: 3,
+    1200: 1,
+    700: 1,
+  };
 
   const { popular_games, new_games, upcoming_games, searched_game } =
     useSelector((state) => state.games);
@@ -41,22 +48,28 @@ const Home = () => {
             <h2>Search results: </h2>
 
             <Games>
-              {searched_game.map((game) => {
-                return (
-                  <Game
-                    id={game.id}
-                    name={game.name}
-                    release={game.released}
-                    platform={game.platforms}
-                    genre={game.genre}
-                    x
-                    image={game.background_image}
-                    rating={game.rating}
-                    key={game.id}
-                    meta={game.metacritic}
-                  />
-                );
-              })}
+              <Masonry
+                breakpointCols={breakpoints}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column"
+              >
+                {searched_game.map((game) => {
+                  return (
+                    <Game
+                      id={game.id}
+                      name={game.name}
+                      release={game.released}
+                      platform={game.platforms}
+                      genre={game.genre}
+                      x
+                      image={game.background_image}
+                      rating={game.rating}
+                      key={game.id}
+                      meta={game.metacritic}
+                    />
+                  );
+                })}
+              </Masonry>
             </Games>
           </div>
         ) : (
@@ -65,59 +78,77 @@ const Home = () => {
 
         <h2>Trending</h2>
         <Games>
-          {new_games.map((game) => {
-            return (
-              <Game
-                id={game.id}
-                name={game.name}
-                release={game.released}
-                platform={game.platforms}
-                genre={game.genre}
-                image={game.background_image}
-                rating={game.rating}
-                key={game.id}
-                meta={game.metacritic}
-              />
-            );
-          })}
+          <Masonry
+            breakpointCols={breakpoints}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            {new_games.map((game) => {
+              return (
+                <Game
+                  id={game.id}
+                  name={game.name}
+                  release={game.released}
+                  platform={game.platforms}
+                  genre={game.genre}
+                  image={game.background_image}
+                  rating={game.rating}
+                  key={game.id}
+                  meta={game.metacritic}
+                />
+              );
+            })}
+          </Masonry>
         </Games>
 
         <h2>Upcoming</h2>
         <Games>
-          {upcoming_games.map((game) => {
-            return (
-              <Game
-                id={game.id}
-                name={game.name}
-                release={game.released}
-                platform={game.platforms}
-                genre={game.genre}
-                image={game.background_image}
-                rating={game.rating}
-                key={game.id}
-                meta={game.metacritic}
-              />
-            );
-          })}
+          <Masonry
+            breakpointCols={breakpoints}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            {upcoming_games.map((game) => {
+              return (
+                <Game
+                  id={game.id}
+                  name={game.name}
+                  release={game.released}
+                  platform={game.platforms}
+                  genre={game.genre}
+                  image={game.background_image}
+                  rating={game.rating}
+                  key={game.id}
+                  meta={game.metacritic}
+                />
+              );
+            })}
+          </Masonry>
         </Games>
 
         <h2>Popular</h2>
         <Games>
-          {popular_games.map((game) => {
-            return (
-              <Game
-                id={game.id}
-                name={game.name}
-                release={game.released}
-                platform={game.platforms}
-                genre={game.genre}
-                image={game.background_image}
-                rating={game.rating}
-                key={game.id}
-                meta={game.metacritic}
-              />
-            );
-          })}
+          <Masonry
+            breakpointCols={breakpoints}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            {popular_games.map((game) => {
+              return (
+                <Game
+                  id={game.id}
+                  name={game.name}
+                  release={game.released}
+                  platform={game.platforms}
+                  genre={game.genre}
+                  image={game.background_image}
+                  rating={game.rating}
+                  key={game.id}
+                  meta={game.metacritic}
+                />
+              );
+            })}
+          </Masonry>
         </Games>
       </AnimateSharedLayout>
     </GameList>
@@ -132,10 +163,10 @@ const GameList = styled(motion.div)`
   }
 `;
 const Games = styled(motion.div)`
-  min-height: 80vh;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  grid-column-gap: 30px;
-  grid-row-gap: 40px;
+  // min-height: 80vh;
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  // grid-column-gap: 30px;
+  // grid-row-gap: 40px;
 `;
 export default Home;
