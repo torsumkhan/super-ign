@@ -36,11 +36,12 @@ npm install
 
 ### 📸 Screenshots
 
----
-
-Thank you for the support 🙏
 Home page overview
 ![Home page overview](https://github.com/torsumkhan/super-ign/blob/master/src/img/super-ign%20snip.PNG?raw=true)
 
 Details Page
 ![Details page](https://github.com/torsumkhan/super-ign/blob/master/src/img/details-page.PNG?raw=true)
+
+---
+
+Thank you for the support 🙏
