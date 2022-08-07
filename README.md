@@ -2,7 +2,7 @@
 
 A videogame database application that fetches trending and popular videogames data from an external API
 
-![](https://github.com/torsumkhan/ecommerce-store/blob/master/docs/kursi-home-addtocart.gif?raw=true)
+![](https://github.com/torsumkhan/super-ign/blob/master/src/img/superign.gif?raw=true)
 
 ## 🔍 Features
 
@@ -39,3 +39,8 @@ npm install
 ---
 
 Thank you for the support 🙏
+Home page overview
+![Home page overview](https://github.com/torsumkhan/super-ign/blob/master/src/img/super-ign%20snip.PNG?raw=true)
+
+Details Page
+![Details page](https://github.com/torsumkhan/super-ign/blob/master/src/img/details-page.PNG?raw=true)
