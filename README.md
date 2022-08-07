@@ -25,7 +25,7 @@ A videogame database application that fetches trending and popular videogames da
 Fork the repo. After that, clone the repo in your system, then:
 
 ```
-git clone https://github.com/torsumkhan/ecommerce-store.git
+git clone https://github.com/torsumkhan/super-ign.git
 ```
 
 &
